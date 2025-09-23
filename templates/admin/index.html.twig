@@ -1,0 +1,114 @@
+
+  <a class="btn btn-primary" href="{{ url('services.create') }}"> Créer</a>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Titre</th>
+            <th>Actions</th>
+           
+        </tr>
+    </thead>
+    <tbody>
+
+      
+
+         {% for service in services %}
+        <tr>
+            <td>{{ service.id }}</td>
+            <td>{{ service.titre }}</td>
+             <td><a class="btn btn-primary" href="{{ url('services.edit', { id: service.id }) }}"> Editer</a>
+                    <div>
+                        <form action="{{ path('services.delete', { id: service.id }) }}" method="post", onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce service ?');">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="btn btn-danger">Supprimer</button>
+                        </form>
+                    </div>
+
+             </td>
+
+        </tr>
+        {% endfor %}
+     
+    </tbody>
+</table>
+
+  <a class="btn btn-primary" href="{{ url('categories.create') }}"> Créer</a>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Titre</th>
+            <th>Catégorie</th>
+            <th>Description</th>
+            <th>Actions</th>
+           
+        </tr>
+    </thead>
+    <tbody>
+
+      
+
+         {% for categorie in categories %}
+        <tr>
+            <td>{{ categorie.id }}</td>
+            <td>{{ categorie.titre }}</td>
+            <td>{{ categorie.categorie }}</td>
+            <td>{{ categorie.description }}</td>
+             <td><a class="btn btn-primary" href="{{ url('categories.edit', { id: categorie.id }) }}"> Editer</a>
+                    <div>
+                        <form action="{{ path('categories.delete', { id: categorie.id }) }}" method="post", onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette catégorie ?');">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="btn btn-danger">Supprimer</button>
+                        </form>
+                    </div>
+
+             </td>
+
+        </tr>
+        {% endfor %}
+     
+    </tbody>
+</table>
+
+
+<a class="btn btn-primary" href="{{ url('detail.create') }}"> Créer</a>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Titre</th>
+            <th>Catégorie</th>
+            <th>Description</th>
+            <th>Actions</th>
+           
+        </tr>
+    </thead>
+    <tbody>
+
+      
+
+         {% for details in detail %}
+        <tr>
+            <td>{{ details.id }}</td>
+            <td>{{ details.titre }}</td>
+            <td>{{ details.categorie }}</td>
+            <td>{{ details.description }}</td>
+             <td><a class="btn btn-primary" href="{{ url('detail.edit', { id: details.id }) }}"> Editer</a>
+                    <div>
+                        <form action="{{ path('detail.delete', { id: details.id }) }}" method="post", onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce détail ?');">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="btn btn-danger">Supprimer</button>
+                        </form>
+                    </div>
+
+             </td>
+
+        </tr>
+        {% endfor %}
+     
+    </tbody>
+</table>
+
+
+
