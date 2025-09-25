@@ -15,6 +15,7 @@
         {% for category in categories %}
         <li>
             <a href="{{ path('categories.show', { slug: category.titre, id: category.id }) }}">{{ category.titre }}</a>
+           
         </li>
         {% endfor %}
     </ul>

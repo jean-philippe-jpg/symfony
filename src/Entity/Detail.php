@@ -78,4 +78,17 @@ class Detail
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->description;
+    }
+    public function __toString1()
+    {
+        return $this->titre;
+    }
+   
+  
+    
+   
 }

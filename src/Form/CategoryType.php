@@ -10,6 +10,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class CategoryType extends AbstractType
 {
@@ -24,19 +25,17 @@ class CategoryType extends AbstractType
 
             ])
 
-             ->add('service_id', ChoiceType::class, [
-             'choices'  => [
-              #'service' => Services::class,
-              'services' => Services::class,
-        ],
-    ]);
-        ;
+             ->add('service_id', EntityType::class, [
+             'class' => Services::class,
+             'choice_label' => 'titre',
+         ]);
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Services::class,
+            'data_class' => Category::class,
         ]);
     }
 }
