@@ -13,4 +13,17 @@
    {{  slug  }}
    
 </div>
+
+<div class="example-wrapper">
+    <h1>services</h1>
+    
+    <ul>
+        {% for service in services %}
+        <li>
+            <a>{{ service.titre }}</a>
+           
+        </li>
+      
+        {% endfor %}
+</div>
 {% endblock %}

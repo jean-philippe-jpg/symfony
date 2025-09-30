@@ -19,27 +19,42 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 final class CategoryController extends AbstractController
 {
     #[Route('/categories', name: 'categories.findall')]
-    public function index(Request $request, CategoryRepository $repository, EntityManagerInterface $em ): Response
+    public function index(int $id,Request $request, CategoryRepository $categoryRepository, EntityManagerInterface $em): Response
     {
+         
 
-        $categories = $repository->findAll();
+        $categories = $categoryRepository->findAll();
+       
 
         return $this->render('category/index.html.twig', [
             'categories' => $categories,
+            'cat' => $categories
         ]);
 
     }
 
      #[Route('/show/{slug}-{id}', name: 'categories.show')]
-    public function show(Request $request, string $slug, int $id): Response
+    public function show(int $id, Request $request, string $slug, CategoryRepository $repository, EntityManagerInterface $em): Response
     {
+       
+
+        $category = $repository->findAll($id);
+        $category = $repository->findOneBySomeField($id);
+        
+        if (!$category) {
+            throw $this->createNotFoundException('Category not found');
+        }
+
         return $this->render('category/show.html.twig', [
 
             'slug' => $slug,
             'id' => $id,
+            'category' => $category,
+            'services' => $category->getServiceId(),
            
 
-        ] );
+        
+        ]);
     }
 
      #[Route('/categorie/{id}/edit', name: 'categories.edit', methods: ['GET', 'POST'] )]
