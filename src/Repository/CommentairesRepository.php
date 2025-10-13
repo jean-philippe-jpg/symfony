@@ -2,22 +2,22 @@
 
 namespace App\Repository;
 
-use App\Entity\Contact;
+use App\Entity\Commentaires;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Contact>
+ * @extends ServiceEntityRepository<Commentaires>
  */
-class ContactRepository extends ServiceEntityRepository
+class CommentairesRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Contact::class);
+        parent::__construct($registry, Commentaires::class);
     }
 
     //    /**
-    //     * @return Contact[] Returns an array of Contact objects
+    //     * @return Commentaires[] Returns an array of Commentaires objects
     //     */
     //    public function findByExampleField($value): array
     //    {
@@ -31,13 +31,13 @@ class ContactRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-        public function findOneBySomeField($value): ?Contact
-        {
-            return $this->createQueryBuilder('c')
-                ->andWhere('c.name = :val')
-                ->setParameter('val', $value)
-                ->getQuery()
-               ->getOneOrNullResult()
-           ;
-   }
+    //    public function findOneBySomeField($value): ?Commentaires
+    //    {
+    //        return $this->createQueryBuilder('c')
+    //            ->andWhere('c.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->getQuery()
+    //            ->getOneOrNullResult()
+    //        ;
+    //    }
 }

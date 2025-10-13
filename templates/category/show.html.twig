@@ -18,10 +18,9 @@
     <h1>services</h1>
     
     <ul>
-        {% for service in services %}
+        {% for categorie in categories %}
         <li>
-            <a>{{ service.titre }}</a>
-           
+           <a href="{{ path('detail.show', { slug: categorie.titre, id: categorie.id }) }}">{{ categorie.titre }}</a>
         </li>
       
         {% endfor %}

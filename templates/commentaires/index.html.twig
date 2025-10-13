@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Laissez un commentaire {% endblock %}
+
+{% block body %}
+    <h1>Laissez un commentaire</h1>
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button class="btn btn-primary">Envoyer</button>
+    {{ form_end(form) }}
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endblock %}

@@ -4,10 +4,13 @@ namespace App\Controller;
 
 use App\Entity\Detail;
 use App\Form\DetailType;
-use Doctrine\ORM\EntityManager;
+use App\Entity\Commentaires;
 #use Symfony\Component\BrowserKit\Request;
+use App\Form\CommentairesType;
+use Doctrine\ORM\EntityManager;
 use App\Repository\DetailRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Dom\Entity;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -28,14 +31,37 @@ final class DetailController extends AbstractController
     }
 
      #[Route('/detail/show/{slug}-{id}', name: 'detail.show')]
-    public function show(Request $request, string $slug, int $id): Response
+    public function show(Request $request, string $slug, int $id, DetailRepository $repository, EntityManagerInterface $em): Response
+    {
+        
+         $commentaires = new Commentaires();
+        $form = $this->createForm(CommentairesType::class, $commentaires);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+
+            $em->persist($commentaires);
+            $em->flush();
+            $this->addFlash('success', 'Commentaire soumis avec succès !');
+            
+        }
+
+
+        $detail = $repository->findByExampleField($id);
+
+        if (!$detail) {
+            throw $this->createNotFoundException('Detail not found');
+        }
     {
         return $this->render('detail/show.html.twig', [
             'slug' => $slug,
-            'id' => $id
+            'id' => $id,
+            'details' => $detail,
+            'form' => $form,
         ] );
     }
-
+}
      #[Route('/detail/{id}/edit', name: 'detail.edit', methods: ['GET', 'POST'] )]
 
     public function edit(Detail $detail, Request $request, EntityManagerInterface $em)

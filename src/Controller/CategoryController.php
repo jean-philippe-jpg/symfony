@@ -38,9 +38,8 @@ final class CategoryController extends AbstractController
     {
        
 
-        $category = $repository->findAll($id);
-        $category = $repository->findOneBySomeField($id);
-        
+        $category = $repository->findByExampleField($id);
+
         if (!$category) {
             throw $this->createNotFoundException('Category not found');
         }
@@ -49,9 +48,9 @@ final class CategoryController extends AbstractController
 
             'slug' => $slug,
             'id' => $id,
-            'category' => $category,
-            'services' => $category->getServiceId(),
-           
+            #'category' => $category,
+            'categories' => $category,
+
 
         
         ]);
