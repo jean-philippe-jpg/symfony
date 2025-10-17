@@ -30,6 +30,37 @@ final class DetailController extends AbstractController
 
     }
 
+
+     #[Route('/detail/findOne/{slug}-{id}', name: 'detail.findOne')]
+    public function findOne(Request $request, string $slug, int $id, DetailRepository $repository, EntityManagerInterface $em): Response
+    {
+        
+         $commentaires = new Commentaires();
+        $form = $this->createForm(CommentairesType::class, $commentaires);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+
+            $em->persist($commentaires);
+            $em->flush();
+            $this->addFlash('success', 'Commentaire soumis avec succès !');
+            
+        }
+
+
+        $detail = $repository->findOneById($id);
+
+        return $this->render('detail/find.html.twig', [
+            'slug' => $slug,
+            'id' => $id,
+            'detail' => $detail,
+            'form' => $form,
+        ] );
+    
+}
+
+
      #[Route('/detail/show/{slug}-{id}', name: 'detail.show')]
     public function show(Request $request, string $slug, int $id, DetailRepository $repository, EntityManagerInterface $em): Response
     {
@@ -93,7 +124,7 @@ final class DetailController extends AbstractController
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-
+                dd($form->get('filename')->getData());
                 $em->persist($detail);
                 $em->flush();
 

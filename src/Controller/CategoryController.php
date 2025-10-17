@@ -48,7 +48,7 @@ final class CategoryController extends AbstractController
 
             'slug' => $slug,
             'id' => $id,
-            #'category' => $category,
+            'details' => $category,
             'categories' => $category,
 
 

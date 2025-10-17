@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title "detail:" ~ slug %}
+
+{% block body %}
+<style>
+    
+</style>
+
+<div class="example-wrapper">
+    <h1> description</h1>
+
+   {{  slug  }}
+   
+</div>
+
+<div class="example-wrapper">
+    <h1>détail</h1>
+
+            <h3>{{ detail.titre }}</h3>
+            <p>{{ detail.description }}</p>
+            <p>{{ detail.tarif }} €</p>
+            
+
+        {{ form_start(form) }}
+
+        {{ form_row(form.username) }}
+        {{ form_row(form.message) }}
+        {{ form_row(form.details, {'id': detail.id}) }}
+        
+
+        {{ form_end(form) }}
+</div>
+{% endblock %}

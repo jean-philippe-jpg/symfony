@@ -20,19 +20,12 @@
     <ul>
         {% for detail in details %}
         <li>
-            <a>{{ detail.titre }}</a>
+           <a href="{{ path('detail.findOne', { slug: detail.titre, id: detail.id }) }}">{{ detail.titre }}</a>
 
         </li>
       
+      
         {% endfor %}
-
-        {{ form_start(form) }}
-
-        {{ form_row(form.username) }}
-        {{ form_row(form.message,  ) }}
-        {{ form_row(form.details, {'id': id})  }}
-
-
-        {{ form_end(form) }}
+    </ul>
 </div>
 {% endblock %}

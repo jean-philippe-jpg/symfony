@@ -36,6 +36,17 @@ class DetailRepository extends ServiceEntityRepository
            ;
         }
 
+
+        public function fundOneById($id): ?Detail
+        {
+            return $this->createQueryBuilder('d')
+                ->andWhere('d.id = :id')
+                ->setParameter('id', $id)
+                ->getQuery()
+                ->getOneOrNullResult()
+            ;
+        }
+
 //    public function findOneBySomeField($value): ?Detail
 //    {
 //        return $this->createQueryBuilder('d')

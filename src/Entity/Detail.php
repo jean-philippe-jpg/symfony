@@ -34,6 +34,9 @@ class Detail
     #[ORM\OneToMany(targetEntity: Commentaires::class, mappedBy: 'details')]
     private Collection $commentaires;
 
+    #[ORM\Column(length: 255)]
+    private ?string $filename = null;
+
     public function __construct()
     {
         $this->commentaires = new ArrayCollection();
@@ -127,6 +130,18 @@ class Detail
                 $commentaire->setDetails(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getFilename(): ?string
+    {
+        return $this->filename;
+    }
+
+    public function setFilename(string $filename): static
+    {
+        $this->filename = $filename;
 
         return $this;
     }
