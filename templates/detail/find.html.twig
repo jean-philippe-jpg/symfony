@@ -21,8 +21,15 @@
             <p>{{ detail.description }}</p>
             <p>{{ detail.tarif }} €</p>
             
+            
 
-        {{ form_start(form) }}
+            <img src="{{ asset('templates/detail/images/' ~ detail.filename) }}" alt="Image de {{ detail.titre }}" width="300">
+            
+       
+</div>
+
+<div>
+     {{ form_start(form) }}
 
         {{ form_row(form.username) }}
         {{ form_row(form.message) }}

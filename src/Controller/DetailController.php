@@ -124,11 +124,16 @@ final class DetailController extends AbstractController
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                dd($form->get('filename')->getData());
+                /** @var UploadedFile $file */
+                $file = $form->get('filename')->getData();
+                $filename = $detail->getId(). $file->getClientOriginalName();
+                $file->move($this->getParameter('kernel.project_dir').'/templates/detail/images', $filename);
+                $detail->setFilename($filename);
+               
                 $em->persist($detail);
                 $em->flush();
 
-                $this->addFlash('success', 'Les detials ont bien été créé');
+                $this->addFlash('success', 'Les détails ont bien été créés');
                 return $this->redirectToRoute('detail.findall');
             }
 
