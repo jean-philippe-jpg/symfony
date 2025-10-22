@@ -127,7 +127,7 @@ final class DetailController extends AbstractController
                 /** @var UploadedFile $file */
                 $file = $form->get('filename')->getData();
                 $filename = $detail->getId(). $file->getClientOriginalName();
-                $file->move($this->getParameter('kernel.project_dir').'/templates/detail/images', $filename);
+                $file->move($this->getParameter('kernel.project_dir').'/public/details/images', $filename);
                 $detail->setFilename($filename);
                
                 $em->persist($detail);
