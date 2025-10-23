@@ -2,12 +2,17 @@
 
 namespace App\Form;
 
+use Dom\Entity;
 use BcMath\Number;
 use App\Entity\Detail;
+use Doctrine\ORM\EntityRepository;
+use App\Repository\DetailRepository;
+use Doctrine\DBAL\Query\QueryBuilder;
 use Symfony\Component\Form\AbstractType;
 use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Bridge\Doctrine\Form\Type\DoctrineType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -27,15 +32,20 @@ class CommentairesType extends AbstractType
                 'label' => 'Message',
             ])
 
-              ->add('details', TextType::class, [
-                'label' => 'Détail concerné',
-
+            ->add('details', EntityType::class, [
+                'class' => Detail::class,
+               'query_builder' => function (EntityRepository $er) {
+                   return $er->createQueryBuilder('d')
+                       ->orderBy('d.id', 'ASC');
+               },
             ])
-            ->add('submit', SubmitType::class, [
+
+
+          ->add('submit', SubmitType::class, [
                 'label' => 'Envoyer',
+
             ]);
     }
-
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
