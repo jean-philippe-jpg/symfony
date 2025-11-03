@@ -2,18 +2,22 @@
 
 namespace App\Controller;
 
+use DateTime;
+use Dom\Entity;
 use App\Entity\Detail;
+#use Symfony\Component\BrowserKit\Request;
 use App\Form\DetailType;
 use App\Entity\Commentaires;
-#use Symfony\Component\BrowserKit\Request;
 use App\Form\CommentairesType;
 use Doctrine\ORM\EntityManager;
 use App\Repository\DetailRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Dom\Entity;
+use Knp\Component\Pager\PaginatorInterface;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 final class DetailController extends AbstractController
@@ -32,30 +36,44 @@ final class DetailController extends AbstractController
 
 
      #[Route('/detail/findOne/{slug}-{id}', name: 'detail.findOne')]
-    public function findOne(Request $request, string $slug, int $id, DetailRepository $repository, EntityManagerInterface $em): Response
+    public function findOne(Request $request, string $slug, int $id, DetailRepository $detail, EntityManagerInterface $em, PaginatorInterface $paginator): Response
     {
         
          $commentaires = new Commentaires();
+       
+
         $form = $this->createForm(CommentairesType::class, $commentaires);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            
+            $commentaires->setCreatedAt(new DateTime());
+            $commentaires->setDetail($detail->findOneById($id));
 
             $em->persist($commentaires);
             $em->flush();
             $this->addFlash('success', 'Commentaire soumis avec succès !');
+
+            return $this->redirectToRoute('detail.findOne', [
+                'slug' => $slug,
+                'id' => $id,
+            ]);
             
         }
 
 
-        $detail = $repository->findOneById($id);
+        $detail = $detail->findOneById($id);
+        //$comments = $paginator->paginate(
+        //$detail,
+        //$request->query->getInt('page', 1), /*page number*/
+        //4 /*limit per page*/
+        //);
 
         return $this->render('detail/find.html.twig', [
             'slug' => $slug,
             'id' => $id,
             'detail' => $detail,
             'form' => $form,
+            'commentaire' => $detail->getCommentaire(),
         ] );
     
 }
@@ -67,6 +85,7 @@ final class DetailController extends AbstractController
         
          $commentaires = new Commentaires();
         $form = $this->createForm(CommentairesType::class, $commentaires);
+        
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -80,6 +99,7 @@ final class DetailController extends AbstractController
 
 
         $detail = $repository->findByExampleField($id);
+          $details = $repository->findOneById($id);
 
         if (!$detail) {
             throw $this->createNotFoundException('Detail not found');
@@ -89,6 +109,7 @@ final class DetailController extends AbstractController
             'slug' => $slug,
             'id' => $id,
             'details' => $detail,
+            
             'form' => $form,
         ] );
     }

@@ -20,8 +20,15 @@ class Commentaires
     #[ORM\Column(type: Types::TEXT)]
     private ?string $message = null;
 
-    #[ORM\ManyToOne(inversedBy: 'commentaires')]
-    private ?Detail $details = null;
+    #[ORM\Column]
+    private ?\DateTime $created_at = null;
+
+    #[ORM\Column]
+    private ?bool $rgpd = null;
+
+    #[ORM\ManyToOne(inversedBy: 'commentaire')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Detail $detail = null;
 
     public function getId(): ?int
     {
@@ -52,14 +59,38 @@ class Commentaires
         return $this;
     }
 
-    public function getDetails(): ?Detail
+    public function getCreatedAt(): ?\DateTime
     {
-        return $this->details;
+        return $this->created_at;
     }
 
-    public function setDetails(?Detail $details): static
+    public function setCreatedAt(\DateTime $created_at): static
     {
-        $this->details = $details;
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function isRgpd(): ?bool
+    {
+        return $this->rgpd;
+    }
+
+    public function setRgpd(bool $rgpd): static
+    {
+        $this->rgpd = $rgpd;
+
+        return $this;
+    }
+
+    public function getDetail(): ?Detail
+    {
+        return $this->detail;
+    }
+
+    public function setDetail(?Detail $detail): static
+    {
+        $this->detail = $detail;
 
         return $this;
     }

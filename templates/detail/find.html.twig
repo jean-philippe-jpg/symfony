@@ -7,6 +7,7 @@
     
 </style>
 
+            <img src="{{ asset('/details/images/' ~ detail.filename) }}" width="300" height="300" alt="Image de {{ detail.titre }}">
 <div class="example-wrapper">
     <h1> description</h1>
 
@@ -23,19 +24,21 @@
             
             
 
-            <img src="{{ asset('public/details/images/' ~ detail.filename) }}" alt="Image de {{ detail.titre }}>
-            
+           
        
 </div>
-
 <div>
-     {{ form_start(form) }}
+    <h3>liste des commentaires</h3>
+    {% for commentaires in commentaire %}
+        <div>
+            <h4>{{ commentaires.username }}</h4>
+            <p>{{ commentaires.message }}</p>
+        </div>
+    {% endfor %}
+</div>
+<div>
+    <h1>Commentaires</h1>
 
-        {{ form_row(form.username) }}
-        {{ form_row(form.message) }}
-        
-        
-
-        {{ form_end(form) }}
+    {{ form(form) }}
 </div>
 {% endblock %}

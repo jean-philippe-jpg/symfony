@@ -28,20 +28,24 @@ class Detail
     #[ORM\ManyToOne(inversedBy: 'details')]
     private ?Category $categorie = null;
 
-    /**
-     * @var Collection<int, Commentaires>
-     */
-    #[ORM\OneToMany(targetEntity: Commentaires::class, mappedBy: 'details')]
-    private Collection $commentaires;
 
     #[ORM\Column(length: 255)]
     private ?string $filename = null;
 
+    /**
+     * @var Collection<int, Commentaires>
+     */
+    #[ORM\OneToMany(targetEntity: Commentaires::class, mappedBy: 'detail', orphanRemoval: true)]
+    private Collection $commentaire;
+    
+    
+
     public function __construct()
     {
-        $this->commentaires = new ArrayCollection();
+        $this->commentaire = new ArrayCollection();
     }
 
+   
     public function getId(): ?int
     {
         return $this->id;
@@ -107,16 +111,16 @@ class Detail
     /**
      * @return Collection<int, Commentaires>
      */
-    public function getCommentaires(): Collection
+    public function getCommentaire(): Collection
     {
-        return $this->commentaires;
+        return $this->commentaire;
     }
 
     public function addCommentaire(Commentaires $commentaire): static
     {
-        if (!$this->commentaires->contains($commentaire)) {
-            $this->commentaires->add($commentaire);
-            $commentaire->setDetails($this);
+        if (!$this->commentaire->contains($commentaire)) {
+            $this->commentaire->add($commentaire);
+            $commentaire->setDetail($this);
         }
 
         return $this;
@@ -124,17 +128,17 @@ class Detail
 
     public function removeCommentaire(Commentaires $commentaire): static
     {
-        if ($this->commentaires->removeElement($commentaire)) {
+        if ($this->commentaire->removeElement($commentaire)) {
             // set the owning side to null (unless already changed)
-            if ($commentaire->getDetails() === $this) {
-                $commentaire->setDetails(null);
+            if ($commentaire->getDetail() === $this) {
+                $commentaire->setDetail(null);
             }
         }
 
         return $this;
     }
 
-    public function getFilename(): ?string
+     public function getFilename(): ?string
     {
         return $this->filename;
     }
@@ -146,7 +150,7 @@ class Detail
         return $this;
     }
    
-  
-    
+
+   
    
 }

@@ -7,7 +7,16 @@
 
 <div class="example-wrapper">
     <h1>Hello</h1>
-
+ 
   <p> Bienvenue sur la page d'acueil</p>
+  {% for images in image %}
+      <div class="pics_home">
+        <h3>{{ images.titre }}</h3>
+        <img src="{{ asset('/home/images/' ~ images.filename) }}" width="300" height="300" alt="Image de {{ images.titre }}">
+        
+        <p>{{ images.description }}</p>
+      </div>
+                       
+  {% endfor %}
 </div>
 {% endblock %}

@@ -6,7 +6,8 @@
 <style>
     
 </style>
-
+ 
+            
 <div class="example-wrapper">
     <h1> Catégories</h1>
 
@@ -14,18 +15,15 @@
    
 </div>
 
-<div class="example-wrapper">
-    <h1>services</h1>
 
-    <ul>
+    <div>
         {% for detail in details %}
-        <li>
-           <a href="{{ path('detail.findOne', { slug: detail.titre, id: detail.id }) }}">{{ detail.titre }}</a>
-
-        </li>
-      
-      
+     
+              <img src="{{ asset('/details/images/' ~ detail.filename) }}" width="300" height="300" alt="Image de {{ detail.titre }}">
+              <div>
+              <a href="{{ path('detail.findOne', { slug: detail.titre, id: detail.id }) }}">{{ detail.titre }}</a>
+     </div>
         {% endfor %}
-    </ul>
-</div>
+   </div>
+
 {% endblock %}
