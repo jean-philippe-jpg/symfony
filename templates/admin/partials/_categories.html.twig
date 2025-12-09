@@ -1,0 +1,40 @@
+
+<table id="categories-table">
+    <a class="btn btn-primary" href="{{ url('categories.create') }}"> Créer</a>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Titre</th>
+            <th>Catégorie</th>
+            <th>Description</th>
+            <th>categories</th>
+            <th>Actions</th>
+           
+        </tr>
+    </thead>
+    <tbody>
+
+      
+
+         {% for categorie in categories %}
+        <tr>
+            <td>{{ categorie.id }}</td>
+            <td>{{ categorie.titre }}</td>
+            <td>{{ categorie.categorie }}</td>
+            <td>{{ categorie.description }}</td>
+            <td>{{ categorie.services.titre | default('') }}</td>
+             <td><a class="btn btn-primary" href="{{ url('categories.edit', { id: categorie.id }) }}"> Editer</a>
+                    <div>
+                        <form action="{{ path('categories.delete', { id: categorie.id }) }}" method="post", onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette catégorie ?');">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="btn btn-danger">Supprimer</button>
+                        </form>
+                    </div>
+
+             </td>
+
+        </tr>
+        {% endfor %}
+     
+    </tbody>
+</table>

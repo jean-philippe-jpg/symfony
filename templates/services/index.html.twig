@@ -13,10 +13,11 @@
    
     <ul>
         {% for service in services %}
-        <li>
-            <a href="{{ path('service.show', { slug: service.titre, id: service.id }) }}">{{ service.titre }}</a>
+       <li class="presta">
+         <a href="{{ path('service.show', { slug: service.titre, id: service.id }) }}">{{ service.titre }}</a>
         </li>
         {% endfor %}
     </ul>
+    <canvas width="500px" height="500px"></canvas>
 </div>
 {% endblock %}

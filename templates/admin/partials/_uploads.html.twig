@@ -1,0 +1,41 @@
+
+<table id="uploads-table">
+    <a class="btn btn-primary" href="{{ url('upload.create') }}"> Créer</a>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Images</th>
+            <th>Titre</th>
+            <th>Description</th>
+            <th>Actions</th>
+           
+        </tr>
+    </thead>
+    <tbody>
+
+      
+
+         {% for uploads in upload %}
+        <tr>
+            <td>{{ uploads.id }}</td>
+            <td>{{ uploads.titre }}</td>
+            <td>{{ uploads.filename }}</td>
+            <td>{{ uploads.description }}</td>
+             <td><a class="btn btn-primary" href="{{ url('upload.edit', { id: uploads.id }) }}"> Editer</a>
+                    <div>
+                        <form action="{{ path('upload.delete', { id: uploads.id }) }}" method="post", onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce détail ?');">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="btn btn-danger">Supprimer</button>
+                        </form>
+                    </div>
+
+             </td>
+
+        </tr>
+        {% endfor %}
+     
+    </tbody>
+</table>
+
+
+

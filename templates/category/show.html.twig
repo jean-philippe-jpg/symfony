@@ -14,15 +14,16 @@
    
 </div>
 
-<div class="example-wrapper">
+<div class="example-wrapper" >
     <h1>services</h1>
     
     <ul>
         {% for categorie in categories %}
-        <li>
-           <a href="{{ path('detail.show', { slug: categorie.titre, id: categorie.id }) }}">{{ categorie.titre }}</a>
+        <li class="presta">
+           <a href="{{ path('detail.show', { slug: categorie.titre, id: categorie.id }) }}">{{ categorie.titre }}</a> 
         </li>
       
         {% endfor %}
-</div>
+        <p>robert</p>
+</div>    <canvas id="graphic">toto le haricot</canvas>
 {% endblock %}

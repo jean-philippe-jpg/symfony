@@ -17,16 +17,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 final class HomeController extends AbstractController {
 
     #[Route('/', name:'home')]
-    function index(Request $request, UploadRepository $uploadRepository, EntityManagerInterface $em): Response {
+    function index(Request $request, UploadRepository $uploadRepository, EntityManagerInterface $em, UserPasswordHasherInterface $userPasswordHasher): Response {
 
-        $user = new User();
-        $user->setEmail('user@examples.com')->setPassword('password1234')->setRoles([]);
-      $em->persist($user);
-        $em->flush();
+       
         $form = $this->createForm(UploadType::class);
         $upload = $uploadRepository->findAll();
         return $this->render('home/index.html.twig', [
@@ -96,7 +94,7 @@ final class HomeController extends AbstractController {
     function admin(Request $request, ServicesRepository $servicesRepository, CategoryRepository $categoryRepository, DetailRepository $detailRepository, UploadRepository $uploadRepository): Response {
 
 
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        //$this->denyAccessUnlessGranted('ROLE_ADMIN');
         $services = $servicesRepository->findAll();
         $categories = $categoryRepository->findAll();
         $detail = $detailRepository->findAll();

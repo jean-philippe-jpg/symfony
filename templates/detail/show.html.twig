@@ -16,11 +16,11 @@
 </div>
 
 
-    <div>
+    <div class="container-list-detail">
         {% for detail in details %}
-     
+     <div >
               <img src="{{ asset('/details/images/' ~ detail.filename) }}" width="300" height="300" alt="Image de {{ detail.titre }}">
-              <div>
+              
               <a href="{{ path('detail.findOne', { slug: detail.titre, id: detail.id }) }}">{{ detail.titre }}</a>
      </div>
         {% endfor %}
