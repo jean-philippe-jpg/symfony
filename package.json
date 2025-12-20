@@ -14,12 +14,17 @@
         "dev-server": "encore dev-server",
         "dev": "encore dev",
         "watch": "encore dev --watch",
-        "build": "encore production --progress"
+        "build": "encore production --progress",
+        "server": "nodemon ./back-js/server.js"
     },
     "dependencies": {
         "@tailwindcss/postcss": "^4.1.16",
         "chart.js": "^4.5.1",
+        "dotenv": "^17.2.3",
+        "express": "^5.2.1",
         "jquery": "^3.7.1",
+        "mongoose": "^9.0.1",
+        "nodemon": "^3.1.11",
         "pie": "^10.7.0",
         "postcss": "^8.5.6",
         "postcss-loader": "^8.2.0",

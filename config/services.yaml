@@ -1,0 +1,11 @@
+services:
+    _defaults:
+        autowire: true 
+        autoconfigure: true
+    App\:
+        resource: "../src/"
+
+parameters:
+    kernel.secret: "%env(APP_SECRET)%"
+    env(MONGODB_URI): ""
+    env(MONGODB_DB): ""
