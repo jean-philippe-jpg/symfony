@@ -1,20 +1,34 @@
 
-version: '3' # Version de Docker Compose à utiliser
+version: '3.8'
 
 services:
-  app: # Nom du premier service
-    image: nom_de_l_image # Image Docker utilisée pour ce service
-    ports:
-      - "port_hôte:port_conteneur" # Mappage des ports
-    environment:
-      - VARIABLE_1=valeur_1 # Variables d'environnement
+
+  app:
+    build: .
+    container_name: symfony_app
+    restart: unless-stopped
+    working_dir: /var/www/html
     volumes:
-      - /chemin/hote:/chemin/conteneur # Mappage de volumes
+      - ./:/var/www/html
+    
     depends_on:
-      - service2 # Dépendances entre les services
+      - db
+  db:
+    image: mysql:8.0
+    container_name: symfony_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: cHampiondEv85
+      MYSQL_DATABASE: multi
+      MYSQL_USER: jeAn-phI
+      MYSQL_PASSWORD: J25061984c%#
 
- 
+    volumes:
+      - db_data:/var/lib/mysql
+      
+    ports:
+      - 3307:3306
 
-networks:
-  mynetwork: # Définition d'un réseau personnalisé
-    driver: bridge # Type de réseau
+volumes:
+  db_data:
+   driver: local
