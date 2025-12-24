@@ -13,3 +13,4 @@ RUN apt-get update && apt-get install -y \
         unzip
 RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 
+ENTRYPOINT ["php-fpm"]
