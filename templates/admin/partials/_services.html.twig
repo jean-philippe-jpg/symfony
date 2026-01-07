@@ -19,7 +19,7 @@
             <td>{{ service.titre }}</td>
              <td><a class="btn btn-primary" href="{{ url('services.edit', { id: service.id }) }}"> Editer</a>
                     <div>
-                        <form action="{{ path('services.delete', { id: service.id }) }}" method="post", onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce service ?');">
+                        <form class="form" action="{{ path('services.delete', { id: service.id }) }}" method="post", onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce service ?');">
                             <input type="hidden" name="_method" value="DELETE">
                             <button type="submit" class="btn btn-danger">Supprimer</button>
                         </form>

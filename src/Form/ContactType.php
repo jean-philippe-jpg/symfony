@@ -8,28 +8,58 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\SubmitButton;
+use Symfony\Component\Form\FormTypeInterface;
 
 class ContactType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class, [
+
+            ->add('name', TextType::class)
+            ->add('email', EmailType::class)
+            ->add('message', TextareaType::class)
+            ->add('submit', SubmitType::class);
+           /* ->add('name', TextType::class, [
                 'label' => 'Nom',
+               'attr' => [
+                    'placeholder' => 'Votre nom complet',
+                    'style' =>  'border: 2px solid black; ',
+                ]
+                
             ])
             ->add('email',  EmailType::class, [
                 'label' => 'Email',
+                'attr' => [
+                    'placeholder' => 'Votre adresse email',
+                    'style' =>  'border: 2px solid black; ',
+                ]
             ])
             ->add('message', TextareaType::class, [
                 'label' => 'Message',
-            ]);
+                'attr' => [
+                    'placeholder' => 'Votre message',
+                    'style' =>  'border: 2px solid black;',
+                ]
+            ])
+
+            ->add('submit', SubmitType::class, [
+                'label' => 'Envoyer',
+                'attr' => [
+                    'class' => 'btn btn-primary mt-3',
+                ]
+            ]);*/
+              
+    //}
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Contact::class,
+           // 'data_class' => Contact::class,
         ]);
     }
 }

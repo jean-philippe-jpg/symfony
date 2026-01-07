@@ -1,5 +1,5 @@
 
-<table id="categories-table">
+<table id="categories-table" >
     <a class="btn btn-primary" href="{{ url('categories.create') }}"> Créer</a>
     <thead>
         <tr>
@@ -25,7 +25,7 @@
             <td>{{ categorie.services.titre | default('') }}</td>
              <td><a class="btn btn-primary" href="{{ url('categories.edit', { id: categorie.id }) }}"> Editer</a>
                     <div>
-                        <form action="{{ path('categories.delete', { id: categorie.id }) }}" method="post", onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette catégorie ?');">
+                        <form class="form" action="{{ path('categories.delete', { id: categorie.id }) }}" method="post", onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette catégorie ?');">
                             <input type="hidden" name="_method" value="DELETE">
                             <button type="submit" class="btn btn-danger">Supprimer</button>
                         </form>

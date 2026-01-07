@@ -14,13 +14,13 @@ class Contact
     private ?int $id = null;
 
     #[ORM\Column(type: 'string', length: 100)]
-    private ?string $name = null;
+    private ?string $name = '';
 
     #[ORM\Column(type: 'string', length: 255)]
-    private ?string $email = null;
+    private ?string $email = '';
 
     #[ORM\Column(type: 'string', length: 255)]
-    private ?string $message = null;
+    private ?string $message = '';
 
     public function getId(): ?int
     {

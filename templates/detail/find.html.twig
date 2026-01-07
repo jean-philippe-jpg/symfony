@@ -6,35 +6,35 @@
 <style>
     
 </style>
+  <div class="titre-find">
+           {{  slug  }}
+           </div>
+    <div class="container-find">
 
-        
-    <div class="container">
-
-        <img src="{{ asset('/details/images/' ~ detail.filename) }}" width="300" height="300" alt="Image de {{ detail.titre }}">
+        <img src="{{ asset('/details/images/' ~ detail.filename) }}"alt="Image de {{ detail.titre }}">
      
-
-        {{  slug  }}
-     
-       <h1>détail</h1>
-
-            <h3>{{ detail.titre }}</h3>
+       
+            <div class="detail_info">
+            
             <p>{{ detail.description }}</p>
             <p>{{ detail.tarif }} €</p>
-                 
-    </div>
- 
-  <button id="comments-list" type="button" class="btn btn-primary btn_commentaire">liste des commentaires</button> 
-  <button id="comment" type="button" class="btn btn-primary btn_commentaire">Ajouter un commentaire</button>
-      {% for commentaires in commentaire %}
+                 </div>
+                   {% for commentaires in commentaire %}
         <div class="comments">
             <h4>{{ commentaires.username }}</h4>
             <p>{{ commentaires.message }}</p>
-        </div>
-    {% endfor %}
-
-    <div  class="form_commentaire" >
-    {{ form(form) }}
+             
      </div>
+           <button id="comment" type="button" class="btn btn-primary btn_commentaire">Ajouter </button>
+              <div  class="form_commentaire" >
+                {{ form(form) }}
+                {{ form_errors(form) }}
+              </div>
+       
+    {% endfor %}
+    </div>
+  
+   
   
 
   

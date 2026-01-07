@@ -23,7 +23,7 @@
             <td>{{ details.description }}</td>
              <td><a class="btn btn-primary" href="{{ url('detail.edit', { id: details.id }) }}"> Editer</a>
                     <div>
-                        <form action="{{ path('detail.delete', { id: details.id }) }}" method="post", onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce détail ?');">
+                        <form class="form" action="{{ path('detail.delete', { id: details.id }) }}" method="post", onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce détail ?');">
                             <input type="hidden" name="_method" value="DELETE">
                             <button type="submit" class="btn btn-danger">Supprimer</button>
                         </form>

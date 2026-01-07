@@ -8,15 +8,12 @@
 </style>
  
             
-<div class="example-wrapper">
-    <h1> Catégories</h1>
-
+<div class="titre">
    {{  slug  }}
-   
+
 </div>
 
-
-    <div class="container-list-detail">
+    <div class="container">
         {% for detail in details %}
      <div >
               <img src="{{ asset('/details/images/' ~ detail.filename) }}" width="300" height="300" alt="Image de {{ detail.titre }}">

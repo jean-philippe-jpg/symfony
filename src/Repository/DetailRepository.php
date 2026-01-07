@@ -23,14 +23,9 @@ class DetailRepository extends ServiceEntityRepository
        {
            return $this->createQueryBuilder('d')
                 ->select( 'd', 'c')
-                #->addSelect('s')
-                #->setParameter('val', $value)
-               # ->orderBy('c.id', 'ASC')
                 ->leftJoin('d.categorie', 'c')
                 ->where('c.id = :id')
                 ->setParameter('id', $id)
-                #->addSelect('s')
-                #->setMaxResults(10)
                 ->getQuery()
                 ->getResult()
            ;

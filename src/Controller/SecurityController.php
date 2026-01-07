@@ -6,11 +6,13 @@ use App\Entity\User;
 use App\Form\RegisterType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Mime\Email;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security\UserAuthenticator;
-use Symfony\Component\BrowserKit\Request;
+use Symfony\Component\Security\Http\Authentification\UserAuthenticatorInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -20,9 +22,9 @@ class SecurityController extends AbstractController
     #[Route(path: '/login', name: 'app_login', methods: ['GET', 'POST'])]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        // if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
-        // }
+         if ($this->getUser()) {
+             return $this->redirectToRoute('detail.findall');
+         }
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -32,16 +34,16 @@ class SecurityController extends AbstractController
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 
-         #[Route(path: '/register', name: 'app_register', methods: ['GET', 'POST'])]
-    public function register(Email $email, Request $request, UserPasswordHasherInterface $passwordHasher, UserAuthenticator $userAuthenticator, EntityManagerInterface $entityManager): Response
+         #[Route(path: '/register', name: 'app_register', methods: [ 'GET','POST'])]
+    public function register( Request $request, UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager): Response
     {
 
         $user = new User();
-        $form = $this->createForm(RegisterType::class, $user);
-        //$form->handleRequest($request);
-        //$email = new Email();
 
-        /*if ($form->isSubmitted() && $form->isValid()) {
+        $form = $this->createForm(RegisterType::class, $user);
+        $form->handleRequest($request);
+    
+        if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
             $user->setPassword(
                 $passwordHasher->hashPassword(
@@ -54,9 +56,9 @@ class SecurityController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_login');*/
+            return $this->redirectToRoute('app_login');
 
-    //}
+    }
 
         return $this->render('security/register.html.twig', [
             'form' => $form->createView(),

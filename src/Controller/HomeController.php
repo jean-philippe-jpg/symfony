@@ -94,7 +94,7 @@ final class HomeController extends AbstractController {
     function admin(Request $request, ServicesRepository $servicesRepository, CategoryRepository $categoryRepository, DetailRepository $detailRepository, UploadRepository $uploadRepository): Response {
 
 
-        //$this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $services = $servicesRepository->findAll();
         $categories = $categoryRepository->findAll();
         $detail = $detailRepository->findAll();

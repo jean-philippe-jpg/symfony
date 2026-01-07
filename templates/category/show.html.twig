@@ -7,23 +7,20 @@
     
 </style>
 
-<div class="example-wrapper">
-    <h1> Catégories</h1>
-
+<div class="titre">
    {{  slug  }}
    
 </div>
 
 <div class="example-wrapper" >
-    <h1>services</h1>
     
     <ul>
         {% for categorie in categories %}
-        <li class="presta">
+        <li class="liste">
            <a href="{{ path('detail.show', { slug: categorie.titre, id: categorie.id }) }}">{{ categorie.titre }}</a> 
         </li>
       
         {% endfor %}
-        <p>robert</p>
-</div>    <canvas id="graphic">toto le haricot</canvas>
+       
+</div>   
 {% endblock %}

@@ -6,18 +6,17 @@
 <style>
    
 </style>
-
-<div class="bg-red-500">
-    <h1>Services</h1>
-
-   
+<div >
+    <h5 class="titre">service</h5>
+</div>
+<div  >
     <ul>
         {% for service in services %}
-       <li class="presta">
+       <li class="liste">
          <a href="{{ path('service.show', { slug: service.titre, id: service.id }) }}">{{ service.titre }}</a>
         </li>
         {% endfor %}
     </ul>
-    <canvas width="500px" height="500px"></canvas>
+   
 </div>
 {% endblock %}

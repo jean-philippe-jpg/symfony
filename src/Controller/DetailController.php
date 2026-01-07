@@ -99,7 +99,7 @@ final class DetailController extends AbstractController
 
 
         $detail = $repository->findByExampleField($id);
-          $details = $repository->findOneById($id);
+          //$details = $repository->findOneById($id);
 
         if (!$detail) {
             throw $this->createNotFoundException('Detail not found');
@@ -163,9 +163,9 @@ final class DetailController extends AbstractController
             ]);
     }
 
-             #[Route('/detail/{id}/edit', name: 'detail.delete', methods: ['DELETE'])]
+             #[Route('/detail/{id}/delete', name: 'detail.delete', methods: ['DELETE'])]
 
-            public function delete(Detail $detail, Request $request, EntityManagerInterface $em)
+            public function delete(Detail $detail, EntityManagerInterface $em)
 
     {       $em->remove($detail);
             $em->flush();

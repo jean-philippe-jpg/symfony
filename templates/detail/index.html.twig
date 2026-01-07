@@ -13,7 +13,7 @@
    
     <ul>
         {% for details in detail %}
-        <li>
+        <li class="liste">
             <a href="{{ path('detail.show', { slug: details.titre, id: details.id }) }}">{{ details.titre }}</a>
         </li>
         {% endfor %}

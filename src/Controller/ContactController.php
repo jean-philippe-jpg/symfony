@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Contact;
 use App\Form\ContactType;
-use App\Repository\ContactRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,31 +16,31 @@ use Symfony\Component\Mime\Email;
 final class ContactController extends AbstractController
 {
      #[Route('/contact', name: 'contact', methods: ['GET', 'POST'])]
-    public function index( Request $request, MailerInterface $mailer, EntityManagerInterface $entityManager): Response
+    public function index( Request $request, MailerInterface $mailer): Response
     {
-        $contact = new Contact();
-        $form = $this->createForm(ContactType::class, $contact);
+        //$contact = new Contact();
+
+        $form = $this->createForm(ContactType::class);
+
         $form->handleRequest($request);
-        
-        
+       
 
         if ($form->isSubmitted() && $form->isValid()) {
-            //Sauvegarder les données dans la base de données
-            $entityManager->persist($contact);
-            $entityManager->flush();
-            //$contactrepo->findOneBySomeField($contact, true);
-            $adress  = $contact->getEmail();
-            $username = $contact->getName();
-            // Envoi de l'email
+
+                $data = $form->getData();
+                 
+                $name = $data['name'];
+                $adress = $data['email'];
+                $message = $data['message'];
+                
             $email = (new Email())
-                ->from('toto@example.com')
-                ->to($adress)
-                ->subject('Nouveau message de contact')
-                ->text($username . 'Nous avons bien reçu votre message et nous vous contacterons sous peu.');
+            ->from($adress)
+            ->to('you@example.com')
+            ->subject('objet')
+            ->text($name.$message);
 
             $mailer->send($email);
-
-            // Message de succès
+         
             $this->addFlash('success', 'Votre message a été envoyé avec succès !');
 
             return $this->redirectToRoute('home');
@@ -51,4 +50,6 @@ final class ContactController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+        
 }
